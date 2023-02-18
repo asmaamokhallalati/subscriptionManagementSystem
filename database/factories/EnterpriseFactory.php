@@ -16,20 +16,23 @@ class EnterpriseFactory extends Factory
      */
     public function definition()
     {
+        $user_level_id = $this->faker->numberBetween(1,2);
+        $enterprise_id = ($user_level_id == 2) ? $this->faker->unique()->numberBetween(1,5) : null;
         
        
         $enterprise_id= $this->faker->unique()->numberBetween(1,5);
         return [
-            
-
-            
-            'enterprise_id' => $enterprise_id,
+            'user_level_id' =>$this->faker->numberBetween(1,2),
             'name' =>$this->faker->name(),
-            'contact' =>$this->faker->name(),
+            
             'email' =>$this->faker->safeEmail(),
 
         ];
 
-        
+        if('user_level_id'== 2){
+            return [
+                'enterprise_id' =>$this->faker->unique()->numberBetween(1,5),
+            ];
+        }
     }
 }
