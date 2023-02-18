@@ -17,18 +17,19 @@ class EnterpriseFactory extends Factory
     public function definition()
     {
         
+       
+        $enterprise_id= $this->faker->unique()->numberBetween(1,5);
         return [
-            'user_level_id' =>$this->faker->numberBetween(1,2),
-            'name' =>$this->faker->name(),
             
+
+            
+            'enterprise_id' => $enterprise_id,
+            'name' =>$this->faker->name(),
+            'contact' =>$this->faker->name(),
             'email' =>$this->faker->safeEmail(),
 
         ];
 
-        if('user_level_id'== 2){
-            return [
-                'enterprise_id' =>$this->faker->unique()->numberBetween(1,5),
-            ];
-        }
+        
     }
 }

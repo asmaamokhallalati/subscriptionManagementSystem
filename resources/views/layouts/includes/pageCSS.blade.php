@@ -22,4 +22,7 @@
 
 <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
+ <!-- Toastr -->
+ <link rel="stylesheet" href="{{ asset('cms/plugins/toastr/toastr.min.css') }}">
+
 <!-- Page CSS -->

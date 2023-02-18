@@ -44,10 +44,9 @@
                 <div class="col-lg-12 mb-4 order-0">
                   <div class="card">
                     <div class="d-flex align-items-end row">
-                      <div class="col-sm-7">
-                        <div class="card-body">
+                      <div class="col-md-12">
                            <!-- card -->
-                        </div>
+                           @yield('content')
                       </div>
                     </div>
                   </div>
