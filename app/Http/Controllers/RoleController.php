@@ -25,7 +25,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::withCount('permissions')->get();
+        $roles = Role::filterByLevel()->withCount('permissions')->get();
         return response()->view('cms.roles.index',['roles'=>$roles]);
     }
 

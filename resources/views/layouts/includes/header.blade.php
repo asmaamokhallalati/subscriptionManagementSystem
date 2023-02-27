@@ -52,11 +52,11 @@ id="layout-navbar"
             <div class="d-flex">
                 <div class="flex-shrink-0 me-3">
                 <div class="avatar avatar-online">
-                    <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    <img src="{{asset('../assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
                 </div>
                 </div>
                 <div class="flex-grow-1">
-                <span class="fw-semibold d-block">John Doe</span>
+                {{-- <span class="fw-semibold d-block">{{auth()->user()->user_name}}</span> --}}
                 <small class="text-muted">Admin</small>
                 </div>
             </div>

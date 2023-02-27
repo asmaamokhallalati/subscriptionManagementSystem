@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
-use Str;
+use Illuminate\Support\Str;
+
 
 class AdminController extends Controller
 {
@@ -55,8 +56,8 @@ class AdminController extends Controller
             $admin = new Admin();
             $admin->name = $request->input('name');
             $admin->email = $request->input('email');
-            // $password = Str::random(10);
-            // $admin->password = Hash::make($password);
+            $password = Str::random(10);
+            $admin->password = Hash::make($password);
             $isSaved = $admin->save();
             if ($isSaved) {
                 $admin->assignRole($request->input('role_id'));

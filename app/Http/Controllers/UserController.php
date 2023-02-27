@@ -83,13 +83,13 @@ class UserController extends Controller
     {
         //
         $validator = Validator($request->all(), [
-            'full_name' => 'required|string|max:30',
+            'name' => 'required|string|max:30',
             'email' => 'required|email'
         ]);
 
         if (!$validator->fails()) {
             $user = new User();
-            $user->full_name = $request->input('full_name');
+            $user->name = $request->input('name');
             $user->email = $request->input('email');
             $isSaved = $user->save();
             return response()->json([
@@ -137,12 +137,12 @@ class UserController extends Controller
     {
         //
         $validator = Validator($request->all(), [
-            'full_name' => 'required|string|max:30',
+            'name' => 'required|string|max:30',
             'email' => 'required|email'
         ]);
 
         if (!$validator->fails()) {
-            $user->full_name = $request->input('full_name');
+            $user->name = $request->input('name');
             $user->email = $request->input('email');
             $isSaved = $user->save();
             return response()->json([

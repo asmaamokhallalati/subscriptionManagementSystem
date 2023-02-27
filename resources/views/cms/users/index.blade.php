@@ -20,7 +20,7 @@
                 @foreach ($users as $user)
                 <tr id="admin_{{$user->id}}_row">
                     <td>{{$loop->index + 1}}</td>
-                    <td>{{$user->full_name}}</td>
+                    <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>
                         <a href="{{route('user.edit-permissions',$user->id)}}" type="button" class="btn btn-block btn-outline-primary btn-sm">({{$user->permissions_count}}) Permission/s</a>

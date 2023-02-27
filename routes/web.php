@@ -2,6 +2,8 @@
 
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -28,27 +30,35 @@ Route::get('/index', function () {
 });
 
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 // Route::resource('roles', RoleController::class);
 // Route::resource('permissions', PermissionController::class);
 
+Route::prefix('cms')->middleware('guest:admin')->group(function () {
+    Route::get('{guard}/login', [AuthController::class, 'showLogin'])->name('cms.login');
+    Route::post('login', [AuthController::class, 'login']);
+});
 
-
- Route::prefix('cms/admin')->group(function () { 
+Route::prefix('cms/admin')->middleware(['auth:admin,user', 'verified'])->group(function () {
+    Route::view('/', 'index')->name('cms.dashboard');
     Route::resource('admins', AdminController::class);
+    Route::get('edit-password', [AuthController::class, 'editPassword'])->name('cms.edit-password');
+    Route::put('edit-password', [AuthController::class, 'updatePassword']);
+    Route::get('logout', [AuthController::class, 'logout'])->name('cms.logout');
+});
+
+Route::prefix('/cms/admin')->middleware(['auth:admin', 'verified'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('users', UserController::class);
 
+    Route::get('roles/{role}/permissions', [RoleController::class, 'editRolePermissions'])->name('role.edit-permissions');
+    Route::put('roles/{role}/permissions', [RoleController::class, 'updateRolePermissions']);
 
-    Route::get('roles/{role}/permissions',[RoleController::class,'editRolePermissions'])->name('role.edit-permissions');
-    Route::put('roles/{role}/permissions',[RoleController::class,'updateRolePermissions']);
-
-    Route::get('users/{user}/permissions',[UserController::class,'editPermissions'])->name('user.edit-permissions');
-    Route::put('users/{user}/permissions',[UserController::class,'updatePermissions']);
-
- });
+    Route::get('users/{user}/permissions', [UserController::class, 'editPermissions'])->name('user.edit-permissions');
+    Route::put('users/{user}/permissions', [UserController::class, 'updatePermissions']);
+});

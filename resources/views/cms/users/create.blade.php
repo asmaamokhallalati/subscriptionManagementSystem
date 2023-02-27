@@ -11,8 +11,8 @@
         <div class="card-body">
             @csrf
             <div class="form-group">
-                <label for="full_name">Fullname</label>
-                <input type="text" class="form-control" id="full_name" placeholder="Enter Full name">
+                <label for="name">Fullname</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Full name">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -33,7 +33,7 @@
     function performSave() {
         // Make a request for a user with a given ID
         axios.post('/cms/admin/users',{
-            full_name: document.getElementById('full_name').value,
+            name: document.getElementById('name').value,
             email: document.getElementById('email').value,
         })
         .then(function (response) {

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="card-header">
-        <h3 class="card-title">User ({{$user->full_name}}) - Permissions</h3>
+        <h3 class="card-title">User ({{$user->name}}) - Permissions</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">

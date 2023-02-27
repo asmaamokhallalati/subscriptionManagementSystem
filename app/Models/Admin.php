@@ -22,7 +22,7 @@ class Admin extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
-        // 'password',
+        'password',
     ];
 
     // public function getActiveKeyAttribute()
@@ -35,13 +35,15 @@ class Admin extends Authenticatable implements MustVerifyEmail
         return new Attribute(get: fn () => $this->name);
     }
 
-    public function activeKey(): Attribute
-    {
-        return new Attribute(get: fn () => $this->active ? 'Active' : 'In-Active');
-    }
+    
 
-    public function genderKey(): Attribute
-    {
-        return new Attribute(get: fn () => $this->gender == 'M' ? 'Male' : 'Female');
-    }
+    // public function activeKey(): Attribute
+    // {
+    //     return new Attribute(get: fn () => $this->active ? 'Active' : 'In-Active');
+    // }
+
+    // public function genderKey(): Attribute
+    // {
+    //     return new Attribute(get: fn () => $this->gender == 'M' ? 'Male' : 'Female');
+    // }
 }

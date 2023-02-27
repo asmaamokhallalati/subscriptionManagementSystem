@@ -11,9 +11,9 @@
         <div class="card-body">
             @csrf
             <div class="form-group">
-                <label for="full_name">Full name</label>
-                <input type="text" class="form-control" id="full_name" placeholder="Enter full name"
-                    value="{{$user->full_name}}">
+                <label for="name">Full name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter full name"
+                    value="{{$user->name}}">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -33,7 +33,7 @@
     function performUpdate() {
         // Make a request for a user with a given ID
         axios.put('/cms/admin/users/{{$user->id}}',{
-            full_name: document.getElementById('full_name').value,
+            name: document.getElementById('name').value,
             email: document.getElementById('email').value,
         })
         .then(function (response) {
