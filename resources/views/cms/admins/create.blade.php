@@ -49,7 +49,8 @@
             // handle success
             console.log(response);
             toastr.success(response.data.message);
-            document.getElementById('page-form').reset();
+            // document.getElementById('page-form').reset();
+            window.location.href = '/cms/admin/admins';
         })
         .catch(function (error) {
             // handle error 4xx - 5xx

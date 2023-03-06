@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Role;  
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 
@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function index()
     {
         //SELECT * FROM admins;
-        $admins = Admin::with('roles')->get();
+        $admins = Admin::with('roles')->with('role')->get();
         return response()->view('cms.admins.index', ['admins' => $admins]);
     }
 

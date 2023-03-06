@@ -17,15 +17,7 @@
                         <option value="{{$role->id}}" @selected($currentRole->id == $role->id)>{{$role->name}}</option>
                         @endforeach
                     </select>
-                </div>                            
-                <div class="form-group">
-                    <label>Cities</label>
-                    <select class="form-control" id="city_id">
-                        @foreach ($cities as $city)
-                        <option value="{{$city->id}}">{{$city->name_en}}</option>
-                        @endforeach
-                    </select>
-                </div>
+                </div>                           
                 <div class="form-group">
                     <label for="name_en">Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter Name"
@@ -35,13 +27,6 @@
                     <label for="name_ar">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter Email"
                         value="{{$admin->email}}">
-                </div>
-                <div class="form-group">
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="active" name="active"
-                            @if($admin->active) checked @endif>
-                        <label class="custom-control-label" for="active">Active</label>
-                    </div>
                 </div>
         </div>
         <!-- /.card-body -->
@@ -59,7 +44,6 @@
             role_id: document.getElementById('role_id').value,
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
-            active: document.getElementById('active').checked,
         })
         .then(function (response) {
             // handle success

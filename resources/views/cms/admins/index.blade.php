@@ -23,7 +23,7 @@
                         <td>{{$loop->index + 1}}</td>
                         <td>{{$admin->name}}</td>
                         <td>{{$admin->email}}</td>
-                        <td>{{$admin->roles[0]->name}}</td>
+                        <td>{{$admin->roles[0]->name ?? 'Null'}}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="{{route('admins.edit',$admin->id)}}" class="btn btn-warning">

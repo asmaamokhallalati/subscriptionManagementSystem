@@ -72,4 +72,6 @@
     <!-- JS -->
     @include('layouts.includes.pageJS')
   </body>
+
+  @yield('scripts')
 </html>

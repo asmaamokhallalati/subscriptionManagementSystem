@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::withCount(['permissions'])->paginate(10);
+        $users = User::withCount(['permissions'])->with('role')->paginate(10);
         return response()->view('cms.users.index', ['users' => $users]);
     }
 
@@ -91,6 +91,7 @@ class UserController extends Controller
             $user = new User();
             $user->name = $request->input('name');
             $user->email = $request->input('email');
+            $user->password = Hash::make(12345);
             $isSaved = $user->save();
             return response()->json([
                 'message' => $isSaved ? 'Saved successfully' : 'Save failed!'
