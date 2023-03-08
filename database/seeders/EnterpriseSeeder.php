@@ -2,9 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\Enterprise;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Enterprise;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+/**
+ * Seeder
+ * before u run the project
+ * to create the first role and user of enterprise level.
+ */
 
 class EnterpriseSeeder extends Seeder
 {
@@ -15,7 +24,34 @@ class EnterpriseSeeder extends Seeder
      */
     public function run()
     {
-        Enterprise::factory(5)->create();
-        
+        $enterprise = Enterprise::query()->firstOrCreate(
+            [
+                'name'      => 'Test Enterprise',
+                'contact'   => 'Testo',
+                'email'     => 'testo@testenterprise.com',
+            ]
+        );
+
+        $user = User::query()->create([
+            'name'          => 'Testo',
+            'email'         => 'testo@testenterprise.com',
+            'password'      => bcrypt('test'),
+            'enterprise_id' => $enterprise->id,
+        ]);
+
+        $role = Role::query()->create(
+            [
+                'name'          => 'Enterprise Admin',
+                'guard_name'    => 'user',
+                'user_level_id' => 2,
+                'enterprise_id' => $enterprise->id,
+            ]
+        );
+
+        $permissions = Permission::query()->where(['guard_name' => 'user'])->get();
+
+        $role->syncPermissions($permissions);
+
+        $user->assignRole([$role->id]);
     }
 }
