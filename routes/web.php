@@ -58,11 +58,11 @@ Route::prefix('/cms/admin')->middleware(['auth:admin'/*, 'verified'*/])->group(f
 
     Route::get('roles/{role}/permissions', [RoleController::class, 'editRolePermissions'])->name('role.edit-permissions');
     Route::put('roles/{role}/permissions', [RoleController::class, 'updateRolePermissions']);
-
-    Route::get('users/{user}/permissions', [UserController::class, 'editPermissions'])->name('user.edit-permissions');
-    Route::put('users/{user}/permissions', [UserController::class, 'updatePermissions']);
 });
 
 Route::prefix('/cms/user')->middleware(['auth:user'/*, 'verified'*/])->group(function () {
     Route::resource('users', UserController::class);
+
+    Route::get('users/{user}/permissions', [UserController::class, 'editPermissions'])->name('user.edit-permissions');
+    Route::put('users/{user}/permissions', [UserController::class, 'updatePermissions']);
 });
