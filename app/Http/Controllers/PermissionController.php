@@ -8,6 +8,12 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:Read-Roles', ['only' => ['index']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class PermissionController extends Controller
     public function index()
     {
         //
-        $permissions = Permission::all();
+        $permissions = Permission::query()->filterByLevel()->get();
         return response()->view('cms.permissions.index', ['permissions' => $permissions]);
     }
 

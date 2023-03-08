@@ -77,57 +77,61 @@
             </a>
         </li>
 
+        @can('Read-Admins')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Admins</div>
             </a>
 
-            <ul class="menu-sub"> 
+            <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{route('admins.index')}}" class="menu-link">
                     Index
                     </a>
-                </li> 
+                </li>
 
                 <li class="menu-item">
                     <a href="{{route("admins.create")}}" class="menu-link">
                     Create
                     </a>
-                </li> 
+                </li>
             </ul>
-        </li>    
-        
+        </li>
+        @endcan
+
+        @can('Read-Users')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Users</div>
             </a>
 
-            <ul class="menu-sub"> 
+            <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{route('users.index')}}" class="menu-link">
                     Index
                     </a>
-                </li> 
+                </li>
 
                 <li class="menu-item">
                     <a href="{{route("users.create")}}" class="menu-link">
                     Create
                     </a>
-                </li> 
+                </li>
             </ul>
-        </li>  
+        </li>
+        @endcan
 
-
+        @can('Read-Roles')
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Roles & Permission</div>
             </a>
 
-            <ul class="menu-sub"> 
-                <li class="menu-item">  
+            <ul class="menu-sub">
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <div data-i18n="Layouts">Roles</div>
                     </a>
@@ -138,21 +142,21 @@
                             <a href="{{route('roles.index')}}" class="menu-link">
                             Index
                             </a>
-                        </li> 
+                        </li>
                         {{-- @endcan
                         @can('Create-Role') --}}
                         <li class="menu-item">
                             <a href="{{route("roles.create")}}" class="menu-link">
                             Create
                             </a>
-                        </li> 
+                        </li>
                         {{-- @endcan --}}
                     </ul>
                     {{-- @endcanany --}}
-                </li> 
-         
-          
-                <li class="menu-item">  
+                </li>
+
+
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <div data-i18n="Layouts">Permissions</div>
                     </a>
@@ -161,12 +165,15 @@
                             <a href="{{route('permissions.index')}}" class="menu-link">
                             Index
                             </a>
-                        </li> 
+                        </li>
                     </ul>
                 </li>
-                 
+
             </ul>
         </li>
+        @endcan
+
+
         <li class="menu-item">
             <a href="{{route("cms.logout")}}" class="menu-link">
             Logout
@@ -177,7 +184,7 @@
             Change Password
             </a>
         </li>
-        
+
     </ul>
 </aside>
 <!-- / Menu -->

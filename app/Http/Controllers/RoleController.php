@@ -12,9 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
 {
-    public function __construct()
+    function __construct()
     {
-        
+        $this->middleware('permission:Read-Roles', ['only' => ['index', 'show']]);
+        $this->middleware('permission:Create-Role', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Update-Role', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Delete-Role', ['only' => ['destroy']]);
     }
 
 
@@ -25,7 +28,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::filterByLevel()->withCount('permissions')->get();
+        $roles = Role::query()->filterByLevel()->withCount('permissions')->get();
         return response()->view('cms.roles.index',['roles'=>$roles]);
     }
 
@@ -49,21 +52,25 @@ class RoleController extends Controller
     {
         //
         $validator = Validator($request->all(),[
-            'guard_name'=>'required|string',
             'name'=>'required|string',
         ]);
 
         if(! $validator->fails()){
             $role= new Role();
             $role->name = $request->input('name');
-            $role->guard_name = $request->input('guard_name');
+
+            # set guard automatically according to user auth
+            $role->guard_name = session('guard');
+            $role->company_id = auth()->user()->company_id ?? null;
+
             $isSaved= $role->save();
+
             return response()->json(
                 [
-                    'message' => $isSaved ? 'Created Successfuly ' : 'Created Failed ' 
+                    'message' => $isSaved ? 'Created Successfuly ' : 'Created Failed '
                 ],
                 $isSaved ? Response::HTTP_CREATED :Response::HTTP_BAD_REQUEST);
-        }else{
+        } else {
             return response()->json(
                 ['message'=>$validator->getMessageBag()->first()] ,
                 Response::HTTP_BAD_REQUEST
@@ -107,15 +114,15 @@ class RoleController extends Controller
 
         if(!$validator->fails()){
             $permission = Permission::findById($request->input('permission_id'),'admin');
-            $role->hasPermissionTo($permission) 
-                ? $role->revokePermissionTo($permission): 
+            $role->hasPermissionTo($permission)
+                ? $role->revokePermissionTo($permission):
                 $role->givePermissionTo($permission);
             return response()->json(['message'=>'Permission Updated Successfully'],Response::HTTP_OK);
         }else{
             return response()->json(
                 ['message'=>$validator->getMessageBag()->first() ],
             Response::HTTP_BAD_REQUEST);
-        }   
+        }
      }
 
     /**
@@ -141,13 +148,12 @@ class RoleController extends Controller
     {
         $validator = Validator($request->all(),[
             'name'=> 'required|string',
-            'guard_name'=> 'required|string|in:admin,user',
         ]);
-        
+
 
         if(!$validator->fails()){
             $role->name = $request->input('name');
-            $role->guard_name = $request->input('guard_name');
+
             $isSaved = $role->save();
             return response()->json([
                 'message'=> $isSaved ? 'Upadted Successfuly ' : ' Updated Failed '],

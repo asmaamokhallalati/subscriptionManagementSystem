@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;  
+use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 
 
 class AdminController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:Read-Admins', ['only' => ['index', 'show']]);
+        $this->middleware('permission:Create-Admin', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Update-Admin', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Delete-Admin', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +29,7 @@ class AdminController extends Controller
     public function index()
     {
         //SELECT * FROM admins;
-        $admins = Admin::with('roles')->with('role')->get();
+        $admins = Admin::with('role')->get();
         return response()->view('cms.admins.index', ['admins' => $admins]);
     }
 
@@ -31,8 +40,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
-        $roles = Role::where('guard_name', '=', 'admin')->get();
+        $roles = Role::query()->filterByLevel()->get();
         return response()->view('cms.admins.create', ['roles' => $roles]);
     }
 
@@ -92,7 +100,7 @@ class AdminController extends Controller
     public function edit(Admin $admin)
     {
         //
-        $roles = Role::where('guard_name', '=', 'admin')->get();
+        $roles = Role::query()->filterByLevel()->get();
         $currentRole = $admin->roles[0];
         return response()->view('cms.admins.edit', ['admin' => $admin, 'roles' => $roles, 'currentRole' => $currentRole]);
     }
@@ -111,7 +119,7 @@ class AdminController extends Controller
             'role_id' => 'required|numeric|exists:roles,id',
             'name' => 'required|string|min:3',
             'email' => 'required|email|unique:admins,email,' . $admin->id,
-        
+
         ]);
 
         if (!$validator->fails()) {

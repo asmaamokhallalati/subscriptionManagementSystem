@@ -14,13 +14,6 @@
         <div class="card-body col-md-6">
             @csrf
             <div class="form-group mt-3">
-                <label class="mt-2">User Type</label>
-                <select class="form-control" id="guard_name">
-                    <option value="admin" @selected($role->guard_name == 'admin')>Admin</option>
-                    <option value="user" @selected($role->guard_name == 'user')>User</option>
-                </select>
-            </div>
-            <div class="form-group mt-3">
                 <label for="name" class="mt-2">Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter Name"
                     value="{{$role->name}}">
@@ -31,7 +24,7 @@
         <div class="card-footer">
             <button type="button" onclick="performUpdate()" class="btn btn-primary">Save</button>
         </div>
-    </form>      
+    </form>
 @endsection
 
 <script>
@@ -40,7 +33,7 @@
         axios.put('/cms/admin/roles/{{$role->id}}',{
             guard_name: document.getElementById('guard_name').value,
             name: document.getElementById('name').value,
-            
+
         })
         .then(function (response) {
             // handle success

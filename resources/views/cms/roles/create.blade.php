@@ -11,13 +11,6 @@
     <form id="page-form">
         <div class="card-body col-md-6">
             @csrf
-            <div class="form-group">
-                <label class="mb-2">User type</label>
-                <select class="form-control" id="guard_name">
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                </select>
-            </div>
             <div class="form-group mt-3">
                 <label for="name" class="mb-2">Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter Name">

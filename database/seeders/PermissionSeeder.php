@@ -6,6 +6,12 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 
+/**
+ * Seeder
+ * for permissions of Admin level
+ * run before use the project
+ */
+
 class PermissionSeeder extends Seeder
 {
     /**
@@ -15,23 +21,20 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::create(['name' => 'Home' , 'guard_name' => 'admin']);
-
-        Permission::create(['name' => 'Create-Role ' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Read-Roles' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Update-Role' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Delete-Role' , 'guard_name' => 'admin']);
-        
-
-        Permission::create(['name' => 'Create-User' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Read-Users' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Update-User' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Delete-User' , 'guard_name' => 'admin']);
-
-
-        Permission::create(['name' => 'Create-Enterprise' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Read-Enterprises' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Update-Enterprise' , 'guard_name' => 'admin']);
-        Permission::create(['name' => 'Delete-Enterprise' , 'guard_name' => 'admin']);
+        Permission::query()->insert([
+            ['name' => 'Home' , 'guard_name' => 'admin'],
+            ['name' => 'Create-Role ' , 'guard_name' => 'admin'],
+            ['name' => 'Read-Roles' , 'guard_name' => 'admin'],
+            ['name' => 'Update-Role' , 'guard_name' => 'admin'],
+            ['name' => 'Delete-Role' , 'guard_name' => 'admin'],
+            ['name' => 'Create-Admin' , 'guard_name' => 'admin'],
+            ['name' => 'Read-Admins' , 'guard_name' => 'admin'],
+            ['name' => 'Update-Admin' , 'guard_name' => 'admin'],
+            ['name' => 'Delete-Admin' , 'guard_name' => 'admin'],
+            ['name' => 'Create-Enterprise' , 'guard_name' => 'admin'],
+            ['name' => 'Read-Enterprises' , 'guard_name' => 'admin'],
+            ['name' => 'Update-Enterprise' , 'guard_name' => 'admin'],
+            ['name' => 'Delete-Enterprise' , 'guard_name' => 'admin'],
+        ]);
     }
 }
