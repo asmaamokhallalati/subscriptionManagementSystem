@@ -31,7 +31,7 @@ class AdminSeeder extends Seeder
                 'password'  => bcrypt("123456"),
             ]
         );
-
+ 
         $role = Role::query()->create(
             [
                 'name'          => 'SuperAdmin',

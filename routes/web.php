@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\EnterpriseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -55,6 +56,7 @@ Route::prefix('cms/admin')->middleware(['auth:admin,user'/*, 'verified'*/])->gro
 Route::prefix('/cms/admin')->middleware(['auth:admin'/*, 'verified'*/])->group(function () {
     Route::resource('admins', AdminController::class);
     Route::resource('users', UserController::class);
+    Route::resource('enterprises', EnterpriseController::class);
 
     Route::get('roles/{role}/permissions', [RoleController::class, 'editRolePermissions'])->name('role.edit-permissions');
     Route::put('roles/{role}/permissions', [RoleController::class, 'updateRolePermissions']);
