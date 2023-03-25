@@ -64,7 +64,9 @@ Route::prefix('/cms/admin')->middleware(['auth:admin'/*, 'verified'*/])->group(f
 
 Route::prefix('/cms/user')->middleware(['auth:user'/*, 'verified'*/])->group(function () {
     Route::resource('users', UserController::class);
+    Route::resource('packages', PackageController::class);
 
     Route::get('users/{user}/permissions', [UserController::class, 'editPermissions'])->name('user.edit-permissions');
     Route::put('users/{user}/permissions', [UserController::class, 'updatePermissions']);
+
 });
