@@ -71,7 +71,14 @@
         // Make a request for a user with a given ID
         axios.post('/cms/admin/users',{
             name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
+            description: document.getElementById('description').value,
+            price: document.getElementById('price').value,
+            duration: document.getElementById('duration').value,
+            duration_unit: document.getElementById('duration_unit').value,
+            image: document.getElementById('image').value,
+            isUnlimited: document.getElementById('isUnlimited').value,
+            limit: document.getElementById('limit').value,
+            active: document.getElementById('active').value,
         })
         .then(function (response) {
             // handle success
