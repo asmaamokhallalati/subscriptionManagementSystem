@@ -17,15 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('description');
-            $table->tinyInteger('price');
-            $table->tinyInteger('duration');
+            $table->double('price');
+            $table->integer('duration');
             $table->string('duration_unit')->comment('d=days,m=monthes,y=years');
             $table->tinyInteger('is_unlimited')->default('0')->comment('0=limited,1=unlimited');
             $table->tinyInteger('limit')->nullable();
             $table->string('image' );
-            $table->tinyInteger('active')->default('0')->comment('0=inactive,1=active');
-            $table->tinyInteger('enterprise_id');
+//            $table->tinyInteger('active')->default('0')->comment('0=inactive,1=active');
+            $table->unsignedInteger('enterprise_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

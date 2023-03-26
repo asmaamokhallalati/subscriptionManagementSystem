@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('activation_codes_groups', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('package_id');
+            $table->unsignedInteger('package_id');
             $table->string('group_name', 50);
-            $table->tinyInteger('count');
-            $table->date('start-date');
-            $table->date('expire-date');
-            $table->tinyInteger('price');
-            $table->tinyInteger('active')->default('0')->comment('0=inactive,1=active');
-            $table->tinyInteger('enterprise_id');
+            $table->unsignedInteger('count');
+            $table->date('start_date');
+            $table->date('expire_date');
+            $table->double('price');
+//            $table->tinyInteger('active')->default('0')->comment('0=inactive,1=active');
+            $table->unsignedInteger('enterprise_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

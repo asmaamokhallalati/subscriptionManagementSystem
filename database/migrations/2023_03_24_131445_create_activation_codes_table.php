@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('activation_codes', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('group_id');
-            $table->tinyInteger('number')->unique();
-            $table->tinyInteger('enterprise_id');
+            $table->unsignedInteger('group_id');
+            $table->string('number')->unique();
+            $table->unsignedInteger('enterprise_id');
             $table->timestamps();
         });
     }

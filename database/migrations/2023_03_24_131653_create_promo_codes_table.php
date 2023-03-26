@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('promo_codes', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->tinyInteger('package_id');
-            $table->tinyInteger('new_price');
-            $table->tinyInteger('enterprise_id');
+            $table->unsignedInteger('package_id');
+            $table->double('discount_percent');
+            $table->unsignedInteger('enterprise_id');
             $table->timestamps();
         });
     }
